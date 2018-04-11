@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidCqrsApp", "RapidCqrsApp\RapidCqrsApp.csproj", "{64349B52-407D-4249-8CDE-8080921EED43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{34E6D509-4D73-407E-927E-538C7F143760}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{684EDF98-8330-4283-9C7E-D29E91A43156}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidCqrs", "..\..\Src\RapidCqrs\RapidCqrs.csproj", "{36FF5DEB-B31A-4B1D-9C9C-62B743FEA95C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidCqrs.Tests", "..\..\Tests\RapidCqrs.Tests\RapidCqrs.Tests.csproj", "{E99E2A1F-0863-4F6A-BF0C-3D5DF35BA199}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidCqrs.Autofac", "..\..\Src\RapidCqrs.Autofac\RapidCqrs.Autofac.csproj", "{75E72910-E504-40AB-9095-9A1905EC2596}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64349B52-407D-4249-8CDE-8080921EED43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64349B52-407D-4249-8CDE-8080921EED43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64349B52-407D-4249-8CDE-8080921EED43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64349B52-407D-4249-8CDE-8080921EED43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36FF5DEB-B31A-4B1D-9C9C-62B743FEA95C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36FF5DEB-B31A-4B1D-9C9C-62B743FEA95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36FF5DEB-B31A-4B1D-9C9C-62B743FEA95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36FF5DEB-B31A-4B1D-9C9C-62B743FEA95C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E99E2A1F-0863-4F6A-BF0C-3D5DF35BA199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E99E2A1F-0863-4F6A-BF0C-3D5DF35BA199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E99E2A1F-0863-4F6A-BF0C-3D5DF35BA199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E99E2A1F-0863-4F6A-BF0C-3D5DF35BA199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75E72910-E504-40AB-9095-9A1905EC2596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E72910-E504-40AB-9095-9A1905EC2596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E72910-E504-40AB-9095-9A1905EC2596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75E72910-E504-40AB-9095-9A1905EC2596}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{36FF5DEB-B31A-4B1D-9C9C-62B743FEA95C} = {34E6D509-4D73-407E-927E-538C7F143760}
+		{E99E2A1F-0863-4F6A-BF0C-3D5DF35BA199} = {684EDF98-8330-4283-9C7E-D29E91A43156}
+		{75E72910-E504-40AB-9095-9A1905EC2596} = {34E6D509-4D73-407E-927E-538C7F143760}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCFEEE6E-B1A5-4117-BD61-67542CE25FC8}
+	EndGlobalSection
+EndGlobal

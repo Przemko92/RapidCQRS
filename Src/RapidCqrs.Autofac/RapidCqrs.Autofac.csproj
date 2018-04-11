@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Autofac integration for RapidCqrs</Description>
+    <Copyright>SKOM</Copyright>
+    <PackageLicenseUrl>https://github.com/Przemko92/RapidCQRS</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Przemko92/RapidCQRS</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Przemko92/RapidCQRS</RepositoryUrl>
+    <PackageTags>autofac, cqrs</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RapidCqrs\RapidCqrs.csproj" />
+  </ItemGroup>
+
+</Project>

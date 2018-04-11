@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1.0</Version>
+    <Description>Easy library for CQRS</Description>
+    <Copyright>SKOM</Copyright>
+    <PackageLicenseUrl>https://github.com/Przemko92/RapidCQRS</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Przemko92/RapidCQRS</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Przemko92/RapidCQRS</PackageProjectUrl>
+    <PackageTags>cqrs, comman query responsibility segragation</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+</Project>
