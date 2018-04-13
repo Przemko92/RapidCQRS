@@ -26,7 +26,7 @@ With autofac integration
 ```
   static void Main(string[] args)
         {
-			var containerBuilder = new ContainerBuilder();
+	    var containerBuilder = new ContainerBuilder();
             containerBuilder
                 .AddRapidCqrs()
                 .Register(typeof(MySimpleCommandHandler)) // Register manualy
@@ -54,7 +54,7 @@ With any another cointainer
 ```
   static void Main(string[] args)
         {
-			var containerBuilder = new ContainerBuilder();
+	    var containerBuilder = new ContainerBuilder();
             var cqrsBuilder = new CqrsBuilder();
 
             cqrsBuilder
@@ -91,7 +91,6 @@ Without any container
   static void Main(string[] args)
         {
             var cqrsBuilder = new CqrsBuilder();
-
             var mediator = cqrsBuilder
                 //.Register(typeof(MySimpleCommandHandler)) // Register manualy
                 //.Register(typeof(MySimpleEventHandler));
@@ -105,11 +104,11 @@ Without any container
 
 ## Authors
 
-* **Przemys≥aw Grzywa** - [Przemko92](https://github.com/Przemko92)
+* **Przemys≈Çaw Grzywa** - [Przemko92](https://github.com/Przemko92)
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details
 
 ## Need help with event sourcing?
 
