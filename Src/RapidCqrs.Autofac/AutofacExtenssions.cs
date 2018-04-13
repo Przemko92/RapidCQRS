@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading;
 using Autofac;
 using RapidCqrs.Builder;
 using RapidCqrs.Builder.Interfaces;
@@ -9,30 +10,29 @@ namespace RapidCqrs.Autofac
 {
     public static class AutofacExtenssions
     {
-        private static ServiceBuilder _builder;
-        private static IMediator _mediator;
+        private static CqrsBuilder _builder;
 
-        public static IServiceBuilder AddRabbitCqrs(this ContainerBuilder containerBuilder)
+        public static ICqrsBuilder AddRapidCqrs(this ContainerBuilder containerBuilder)
         {
-            _builder = new ServiceBuilder();
+            _builder = new CqrsBuilder();
             _builder
-                .RegisterContainer(new ContainerRegistration(x => containerBuilder.RegisterType(x).AsSelf()));
+                .RegisterContainer(new ContainerRegistration(x =>
+                    containerBuilder
+                        .RegisterType(x)
+                        .AsSelf()
+                        .InstancePerDependency()));
 
             containerBuilder
-                .Register(x => _mediator)
+                .Register(x =>
+                {
+                    var scope = x.Resolve<ILifetimeScope>();
+                    _builder.RegisterResolver(new BasicHandlerResolver(scope.Resolve));
+                    return _builder.Build();
+                })
                 .As<IMediator>()
                 .SingleInstance();
 
             return _builder;
-        }
-        
-        public static IContainer InitCqrs(this IContainer container)
-        {
-            _builder
-                .RegisterResolver(new BasicHandlerResolver(container.Resolve));
-
-            _mediator = _builder.Build();
-            return container;
         }
     }
 }

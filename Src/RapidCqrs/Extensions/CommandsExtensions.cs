@@ -7,7 +7,7 @@ using RapidCqrs.Models.Interfaces;
 
 namespace RapidCqrs.Extensions
 {
-    public static class CommandsExtensions
+    internal static class CommandsExtensions
     {
         public static async Task<TResponse> ExecuteAsync<TRequest, TResponse >(this ICommandHandler<TRequest, TResponse> eventHandler, TRequest command)
             where TRequest : ICommand<TResponse>

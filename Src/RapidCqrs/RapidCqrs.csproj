@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Description>Easy library for CQRS</Description>
     <Copyright>SKOM</Copyright>
     <PackageLicenseUrl>https://github.com/Przemko92/RapidCQRS</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Przemko92/RapidCQRS</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Przemko92/RapidCQRS</PackageProjectUrl>
-    <PackageTags>cqrs, comman query responsibility segragation</PackageTags>
+    <PackageTags>cqrs, command query responsibility segragation</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

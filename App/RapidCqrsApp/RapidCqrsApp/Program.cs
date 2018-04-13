@@ -3,6 +3,7 @@ using Autofac;
 using RapidCqrs.Autofac;
 using RapidCqrs.Builder;
 using RapidCqrs.Helpers.Interfaces;
+using RapidCqrsApp.Handlers;
 using RapidCqrsApp.Handlers.Commands;
 using RapidCqrsApp.Handlers.Events;
 using RapidCqrsApp.Models;
@@ -21,9 +22,11 @@ namespace RapidCqrsApp
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder
-                .AddRabbitCqrs()
+                .AddRapidCqrs()
                 .Register(typeof(MySimpleCommandHandler)) // Register manualy
-                .Register(typeof(MySimpleEventHandler));
+                .Register<MySimpleEventHandler>() // Register manualy generic way
+                .RegisterDefaultHandler<MyDefaultHandler>();
+                //.RegisterDefaultHandler(typeof(MyDefaultHandler));
             //.AutoRegisterHandlers(Assembly.GetEntryAssembly()); // Register automatically
 
             containerBuilder
@@ -31,13 +34,13 @@ namespace RapidCqrsApp
                 .AsSelf();
 
             IContainer container = containerBuilder
-                .Build()
-                .InitCqrs();
+                .Build();
 
             var mediator = container.Resolve<IMediator>();
 
-            mediator.SendAsync(new MySimpleEvent());
+            mediator.Send(new MySimpleEvent());
             MySimpleResponse resp = mediator.Execute(new MySimpleCommand());
+            mediator.Send(new MyAnotherEvent());
         }
         //#################################################################
 
@@ -47,22 +50,25 @@ namespace RapidCqrsApp
         ///// <summary>
         ///// With any container without integration
         ///// </summary>
-        //private static IContainer container;
+
         //static void Main(string[] args)
         //{
         //    var containerBuilder = new ContainerBuilder();
-        //    var cqrsBuilder = new ServiceBuilder();
+        //    var cqrsBuilder = new CqrsBuilder();
 
-        //    var mediator = cqrsBuilder
+        //    cqrsBuilder
         //        //.Register(typeof(MySimpleCommandHandler)) // Register manualy
         //        //.Register(typeof(MySimpleEventHandler));
         //        .AutoRegisterHandlers(Assembly.GetEntryAssembly()) // Register automatically                
-        //        .RegisterResolver(new BasicHandlerResolver(x => container.Resolve(x)))
-        //        .RegisterContainer(new ContainerRegistration(x => containerBuilder.RegisterType(x).AsSelf()))
-        //        .Build();
+        //        .RegisterContainer(new ContainerRegistration(x => containerBuilder.RegisterType(x).AsSelf()));
 
         //    containerBuilder
-        //        .Register(x => mediator)
+        //        .Register(x =>
+        //        {
+        //            var scope = x.Resolve<ILifetimeScope>();
+        //            cqrsBuilder.RegisterResolver(new BasicHandlerResolver(scope.Resolve));
+        //            return cqrsBuilder.Build();
+        //        })
         //        .As<IMediator>()
         //        .SingleInstance();
 
@@ -70,9 +76,10 @@ namespace RapidCqrsApp
         //        .RegisterType<TestParam>()
         //        .AsSelf();
 
-        //    container = containerBuilder
+        //    var container = containerBuilder
         //        .Build();
 
+        //    var mediator = container.Resolve<IMediator>();
         //    mediator.SendAsync(new MySimpleEvent());
         //    MySimpleResponse resp = mediator.Execute(new MySimpleCommand());
         //}
@@ -86,7 +93,7 @@ namespace RapidCqrsApp
         ///// </summary>
         //static void Main(string[] args)
         //{
-        //    var cqrsBuilder = new ServiceBuilder();
+        //    var cqrsBuilder = new CqrsBuilder();
 
         //    var mediator = cqrsBuilder
         //        //.Register(typeof(MySimpleCommandHandler)) // Register manualy

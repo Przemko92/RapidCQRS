@@ -7,8 +7,9 @@
     <PackageLicenseUrl>https://github.com/Przemko92/RapidCQRS</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Przemko92/RapidCQRS</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Przemko92/RapidCQRS</RepositoryUrl>
-    <PackageTags>autofac, cqrs</PackageTags>
+    <PackageTags>autofac, cqrs, rapidcqrs</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

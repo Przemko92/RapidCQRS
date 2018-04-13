@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using RapidCqrs.Helpers.Interfaces;
 using RapidCqrs.Models.Interfaces;
 
-namespace RapidCqrs.Helpers.Models
+namespace RapidCqrsApp.Handlers
 {
-    public class DefaultHandler : IDefaultHandler
+    class MyDefaultHandler : IDefaultHandler
     {
         public object Execute(ICommand<object> request)
         {
-            throw new InvalidDataException("This command cannot be published");
+            return null;
         }
 
         public void Publish(IEvent @event)
         {
-            throw new InvalidDataException("This event cannot be published");
         }
 
         public void Dispose()

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using RapidCqrs.Helpers.Interfaces;
+using RapidCqrs.Models.Interfaces;
 
 namespace RapidCqrs.Extensions
 {
-    public static class EventsExtensions
+    internal static class EventsExtensions
     {
-        public static async Task PublishAsync<TRequest>(this IEventHandler<TRequest> eventHandler, TRequest @event)
+        public static async Task PublishAsync<TRequest>(this IEventHandler<TRequest> eventHandler, TRequest @event) 
+            where TRequest : IEvent
         {
             await Task.Run(() => eventHandler.Publish(@event));
         }

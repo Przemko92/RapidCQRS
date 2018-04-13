@@ -9,12 +9,12 @@ using RapidCqrs.Helpers.Interfaces;
 
 namespace RapidCqrs.Builder
 {
-    internal class HandlersFactory : IHandlersFactory
+    public class HandlersFactory : IHandlersFactory
     {
         private readonly IDictionary<Type, Func<IHandler>> _handlersDictionary;
-        private readonly Func<Type, IHandler> _defaultHandler;
+        private readonly Func<IHandler> _defaultHandler;
 
-        internal HandlersFactory(IDictionary<Type, Func<IHandler>> handlersDictionary, Func<Type, IHandler> defaultHandler)
+        public HandlersFactory(IDictionary<Type, Func<IHandler>> handlersDictionary, Func<IHandler> defaultHandler)
         {
             this._handlersDictionary = handlersDictionary;
             this._defaultHandler = defaultHandler;
@@ -30,7 +30,7 @@ namespace RapidCqrs.Builder
             }
             else if (this._defaultHandler != null)
             {
-                handler = this._defaultHandler(requestType);
+                handler = this._defaultHandler();
             }
             else
             {
