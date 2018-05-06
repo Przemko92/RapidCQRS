@@ -13,7 +13,9 @@ namespace RapidCqrs.Builder
     public class CqrsBuilder : ICqrsBuilder
     {
         private static readonly Type CommandHandlerType = typeof(ICommandHandler<,>);
+        private static readonly Type CommandAsyncHandlerType = typeof(IAsyncCommandHandler<,>);
         private static readonly Type EventHandlerType = typeof(IEventHandler<>);
+        private static readonly Type EventAsyncHandlerType = typeof(IAsyncEventHandler<>);
 
         private Func<IHandler> _defaultHandler;
         private IDictionary<Type, Func<IHandler>> _handlers;
@@ -66,7 +68,9 @@ namespace RapidCqrs.Builder
             var @interface = handler
                 .GetInterfaces()
                 .First(x => x.Name.Equals(CommandHandlerType.Name) && x.Namespace.Equals(CommandHandlerType.Namespace) ||
-                            x.Name.Equals(EventHandlerType.Name) && x.Namespace.Equals(EventHandlerType.Namespace));
+                            x.Name.Equals(EventHandlerType.Name) && x.Namespace.Equals(EventHandlerType.Namespace) ||
+                            x.Name.Equals(CommandAsyncHandlerType.Name) && x.Namespace.Equals(CommandAsyncHandlerType.Namespace) ||
+                            x.Name.Equals(EventAsyncHandlerType.Name) && x.Namespace.Equals(EventAsyncHandlerType.Namespace));
 
             return @interface.GetGenericArguments().First();
         }

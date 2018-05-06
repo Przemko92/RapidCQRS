@@ -22,35 +22,86 @@ namespace RapidCqrs.Helpers
 
         public async Task<TResponse> ExecuteAsync<TResponse>(ICommand<TResponse> request, CancellationToken cancellationToken = default)
         {
-            using (var handler = await this._handlersFactory.GetHandlerAsync(request.GetType(), cancellationToken))
+            var handler = this._handlersFactory.GetHandler(request.GetType());
+            try
             {
-                return (TResponse)handler.GetType().GetMethod("Execute").Invoke(handler, new[] { request });
+                if (handler is IAsyncCommandHandler)
+                {
+                    return await (Task<TResponse>)handler.GetType().GetMethod("Execute").Invoke(handler, new object[] { request, cancellationToken });
+                }
+                else
+                {
+                    return await Task.Run(() => (TResponse)handler.GetType().GetMethod("Execute").Invoke(handler, new object[] { request }), cancellationToken);
+                }
+            }
+            finally
+            {
+                handler.Dispose();
             }
         }
 
         public TResponse Execute<TResponse>(ICommand<TResponse> request)
         {
-            using (var handler = this._handlersFactory.GetHandler(request.GetType()))
+            var handler = this._handlersFactory.GetHandler(request.GetType());
+            try
             {
-                return (TResponse)handler.GetType().GetMethod("Execute").Invoke(handler, new[] { request });
+                if (handler is ICommandHandler)
+                {
+                    return (TResponse)handler.GetType().GetMethod("Execute").Invoke(handler, new object[] { request });
+                }
+                else
+                {
+                    var result =
+                        ((Task<TResponse>) handler.GetType().GetMethod("Execute").Invoke(handler, new object[] {request, default(CancellationToken)}));
+
+                    return result != null ? result.Result : default(TResponse);
+                }
+            }
+            finally
+            {
+                handler.Dispose();
             }
         }
 
         public async Task SendAsync<TRequest>(TRequest @event, CancellationToken cancellationToken = default)
             where TRequest : IEvent
         {
-            using (var handler = (IEventHandler<TRequest>)await this._handlersFactory.GetHandlerAsync(@event.GetType(), cancellationToken))
+            var handler = this._handlersFactory.GetHandler(@event.GetType());
+            try
             {
-                await handler.PublishAsync(@event);
+                if (handler is IEventHandler<TRequest>)
+                {
+                    await ((IEventHandler<TRequest>)handler).PublishAsync(@event, cancellationToken);
+                }
+                else
+                {
+                    await ((IAsyncEventHandler<TRequest>)handler).Publish(@event, cancellationToken);
+                }
+            }
+            finally
+            {
+                handler.Dispose();
             }
         }
 
         public void Send<TRequest>(TRequest @event)
             where TRequest : IEvent
         {
-            using (var handler = (IEventHandler<TRequest>)this._handlersFactory.GetHandler(@event.GetType()))
+            var handler = this._handlersFactory.GetHandler(@event.GetType());
+            try
             {
-                handler.Publish(@event);
+                if (handler is IEventHandler<TRequest>)
+                {
+                    ((IEventHandler<TRequest>)handler).Publish(@event);
+                }
+                else
+                {
+                    ((IAsyncEventHandler<TRequest>)handler).Publish(@event).RunSynchronously();
+                }
+            }
+            finally
+            {
+                handler.Dispose();
             }
         }
     }

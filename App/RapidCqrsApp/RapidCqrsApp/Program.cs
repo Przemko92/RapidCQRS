@@ -24,7 +24,7 @@ namespace RapidCqrsApp
             containerBuilder
                 .AddRapidCqrs()
                 .Register(typeof(MySimpleCommandHandler)) // Register manualy
-                .Register<MySimpleEventHandler>() // Register manualy generic way
+                .Register<MySimpleAsyncCommandHandler>() // Register manualy generic way
                 .RegisterDefaultHandler<MyDefaultHandler>();
                 //.RegisterDefaultHandler(typeof(MyDefaultHandler));
             //.AutoRegisterHandlers(Assembly.GetEntryAssembly()); // Register automatically
@@ -41,6 +41,7 @@ namespace RapidCqrsApp
             mediator.Send(new MySimpleEvent());
             MySimpleResponse resp = mediator.Execute(new MySimpleCommand());
             mediator.Send(new MyAnotherEvent());
+            MySimpleResponse resp2 = mediator.ExecuteAsync(new MySimpleCommand()).Result;
         }
         //#################################################################
 
