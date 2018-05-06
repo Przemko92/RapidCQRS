@@ -34,8 +34,6 @@ namespace RapidCqrs.Tests.Builder
             var builder = new CqrsBuilder();
 
             //Act Assert
-            Assert.Throws<InvalidCastException>(() => builder.Register<InvalidEventHandler>());
-            Assert.Throws<InvalidCastException>(() => builder.Register<InvalidCommandHandler>());
             Assert.Throws<InvalidCastException>(() => builder.Register(typeof(InvalidEventHandler)));
             Assert.Throws<InvalidCastException>(() => builder.Register(typeof(InvalidCommandHandler)));
             Assert.Throws<InvalidCastException>(() => builder.RegisterDefaultHandler(typeof(InvalidCommandHandler)));

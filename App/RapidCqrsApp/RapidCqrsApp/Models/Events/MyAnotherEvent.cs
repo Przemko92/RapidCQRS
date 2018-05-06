@@ -5,7 +5,7 @@ using RapidCqrs.Models.Interfaces;
 
 namespace RapidCqrsApp.Models.Events
 {
-    class MyAnotherEvent : IEvent
+    class MyAnotherEvent 
     {
     }
 }

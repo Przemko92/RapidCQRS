@@ -31,6 +31,7 @@ namespace RapidCqrs.Builder
         }
 
         public ICqrsBuilder Register<T>()
+            where T : IHandler
         {
             return Register(typeof(T));
         }
@@ -82,6 +83,7 @@ namespace RapidCqrs.Builder
         }
 
         public ICqrsBuilder RegisterDefaultHandler<T>()
+            where T : IDefaultHandler
         {
             return RegisterDefaultHandler(typeof(T));
         }
@@ -112,7 +114,7 @@ namespace RapidCqrs.Builder
             this._handlerTypes.Add(handlerType);
             return this;
         }
-        
+
         public ICqrsBuilder RegisterContainer(IContainerRegistration containerRegistration)
         {
             this._containerRegistration = containerRegistration ?? throw new ArgumentNullException(nameof(containerRegistration));

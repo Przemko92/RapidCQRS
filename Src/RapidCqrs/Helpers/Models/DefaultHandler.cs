@@ -15,7 +15,7 @@ namespace RapidCqrs.Helpers.Models
             throw new InvalidDataException("This command cannot be published");
         }
 
-        public void Publish(IEvent @event)
+        public void Publish(object @event)
         {
             throw new InvalidDataException("This event cannot be published");
         }

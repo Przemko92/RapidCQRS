@@ -11,7 +11,6 @@ namespace RapidCqrs.Extensions
     internal static class EventsExtensions
     {
         public static async Task PublishAsync<TRequest>(this IEventHandler<TRequest> eventHandler, TRequest @event, CancellationToken cancellationToken = default ) 
-            where TRequest : IEvent
         {
             await Task.Run(() => eventHandler.Publish(@event), cancellationToken);
         }

@@ -7,7 +7,7 @@ using RapidCqrs.Models.Interfaces;
 
 namespace RapidCqrs.Tests.Builder.Models.Commands
 {
-    public class TestEvent : IEvent
+    public class TestEvent 
     {
     }
 }

@@ -5,7 +5,7 @@ using RapidCqrs.Models.Interfaces;
 
 namespace RapidCqrs.Helpers.Interfaces
 {
-    public interface IDefaultHandler : ICommandHandler<ICommand<object>, object>, IEventHandler<IEvent>
+    public interface IDefaultHandler : ICommandHandler<ICommand<object>, object>, IEventHandler<object>
     {
     }
 }

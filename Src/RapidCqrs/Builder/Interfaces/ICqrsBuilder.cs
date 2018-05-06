@@ -9,13 +9,13 @@ namespace RapidCqrs.Builder.Interfaces
 {
     public interface ICqrsBuilder
     {
-        ICqrsBuilder Register<T>();
+        ICqrsBuilder Register<T>() where T : IHandler;
         ICqrsBuilder Register(params Type[] handlers);
         ICqrsBuilder AutoRegisterHandlers(params Assembly[] assemblies);
         ICqrsBuilder RegisterDefaultHandler(Type handlerType);
         ICqrsBuilder RegisterContainer(IContainerRegistration containerRegistration);
         ICqrsBuilder RegisterResolver(IHandlerResolver resolver);
-        ICqrsBuilder RegisterDefaultHandler<T>();
+        ICqrsBuilder RegisterDefaultHandler<T>() where T : IDefaultHandler;
         IMediator Build();
     }
 }

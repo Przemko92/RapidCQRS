@@ -23,20 +23,32 @@ namespace RapidCqrs.Helpers
         public async Task<TResponse> ExecuteAsync<TResponse>(ICommand<TResponse> request, CancellationToken cancellationToken = default)
         {
             var handler = this._handlersFactory.GetHandler(request.GetType());
-            try
+
+            if (handler is IAsyncCommandHandler)
             {
-                if (handler is IAsyncCommandHandler)
+                try
                 {
                     return await (Task<TResponse>)handler.GetType().GetMethod("Execute").Invoke(handler, new object[] { request, cancellationToken });
                 }
-                else
+                finally
                 {
-                    return await Task.Run(() => (TResponse)handler.GetType().GetMethod("Execute").Invoke(handler, new object[] { request }), cancellationToken);
+                    handler.Dispose();
                 }
             }
-            finally
+            else
             {
-                handler.Dispose();
+                return await Task.Run(() =>
+                {
+                    try
+                    {
+                        return (TResponse)handler.GetType().GetMethod("Execute")
+                            .Invoke(handler, new object[] { request });
+                    }
+                    finally
+                    {
+                        handler.Dispose();
+                    }
+                }, cancellationToken);
             }
         }
 
@@ -52,7 +64,7 @@ namespace RapidCqrs.Helpers
                 else
                 {
                     var result =
-                        ((Task<TResponse>) handler.GetType().GetMethod("Execute").Invoke(handler, new object[] {request, default(CancellationToken)}));
+                        ((Task<TResponse>)handler.GetType().GetMethod("Execute").Invoke(handler, new object[] { request, default(CancellationToken) }));
 
                     return result != null ? result.Result : default(TResponse);
                 }
@@ -64,28 +76,37 @@ namespace RapidCqrs.Helpers
         }
 
         public async Task SendAsync<TRequest>(TRequest @event, CancellationToken cancellationToken = default)
-            where TRequest : IEvent
         {
             var handler = this._handlersFactory.GetHandler(@event.GetType());
-            try
+            if (handler is IEventHandler<TRequest>)
             {
-                if (handler is IEventHandler<TRequest>)
-                {
-                    await ((IEventHandler<TRequest>)handler).PublishAsync(@event, cancellationToken);
-                }
-                else
+                await Task.Run(() =>
+                 {
+                     try
+                     {
+                         ((IEventHandler<TRequest>)handler).Publish(@event);
+                     }
+                     finally
+                     {
+                         handler.Dispose();
+                     }
+
+                 }, cancellationToken);
+            }
+            else
+            {
+                try
                 {
                     await ((IAsyncEventHandler<TRequest>)handler).Publish(@event, cancellationToken);
                 }
-            }
-            finally
-            {
-                handler.Dispose();
+                finally
+                {
+                    handler.Dispose();
+                }
             }
         }
 
         public void Send<TRequest>(TRequest @event)
-            where TRequest : IEvent
         {
             var handler = this._handlersFactory.GetHandler(@event.GetType());
             try

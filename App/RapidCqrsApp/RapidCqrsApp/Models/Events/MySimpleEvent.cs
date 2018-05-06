@@ -2,7 +2,7 @@
 
 namespace RapidCqrsApp.Models.Events
 {
-    public class MySimpleEvent : IEvent
+    public class MySimpleEvent 
     {
         public string First { get; set; }
         public int Second { get; set; }

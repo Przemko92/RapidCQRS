@@ -10,10 +10,8 @@ namespace RapidCqrs.Helpers.Interfaces
 
         TResponse Execute<TResponse>(ICommand<TResponse> request);
 
-        Task SendAsync<TRequest>(TRequest @event, CancellationToken cancellationToken = default) 
-            where TRequest : IEvent;
+        Task SendAsync<TRequest>(TRequest @event, CancellationToken cancellationToken = default);
 
-        void Send<TRequest>(TRequest @event) 
-            where TRequest : IEvent;
+        void Send<TRequest>(TRequest @event);
     }
 }

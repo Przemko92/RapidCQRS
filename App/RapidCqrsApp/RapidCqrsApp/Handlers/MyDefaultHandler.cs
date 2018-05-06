@@ -13,7 +13,7 @@ namespace RapidCqrsApp.Handlers
             return null;
         }
 
-        public void Publish(IEvent @event)
+        public void Publish(object @event)
         {
         }
 

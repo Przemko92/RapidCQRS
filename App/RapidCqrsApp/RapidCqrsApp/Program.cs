@@ -25,6 +25,7 @@ namespace RapidCqrsApp
                 .AddRapidCqrs()
                 .Register(typeof(MySimpleCommandHandler)) // Register manualy
                 .Register<MySimpleAsyncCommandHandler>() // Register manualy generic way
+                .Register<MySimpleEventHandler>()
                 .RegisterDefaultHandler<MyDefaultHandler>();
                 //.RegisterDefaultHandler(typeof(MyDefaultHandler));
             //.AutoRegisterHandlers(Assembly.GetEntryAssembly()); // Register automatically
